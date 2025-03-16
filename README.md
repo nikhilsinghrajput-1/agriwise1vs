@@ -45,7 +45,7 @@ Agriwise is an AI-powered farming advisory platform that provides real-time insi
 Agriwise is built with a modular and scalable architecture that includes:
 
 - **Frontend:**  
-  A Flutter-based mobile application that follows Google's Material Design principles, ensuring a modern, intuitive, and accessible user interface.
+  A Flutter-based mobile application following Google's Material Design principles, ensuring a modern, intuitive, and accessible user interface.
 - **Backend:**  
   Powered by Firebase Cloud Functions (or alternatively Node.js/AWS Lambda) to handle user authentication, API request handling, and AI advisory logic.
 - **Database:**  
@@ -80,7 +80,45 @@ Agriwise is built with a modular and scalable architecture that includes:
 
 ### Installation
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/yourusername/agriwise.git
-   cd agriwise
+```bash
+# Clone the Repository:
+git clone https://github.com/yourusername/agriwise.git
+cd agriwise
+
+# Install Flutter Dependencies:
+flutter pub get
+
+# Set Up the Backend:
+# If using Firebase Cloud Functions:
+cd agriwise-backend
+npm install
+
+# If using Node.js, create a .env file with your environment variables.
+
+
+# Configure Firebase Project:
+# Follow Firebase setup instructions to connect your project with Firebase and configure Firestore.
+
+# Set Up the Database:
+# If using PostgreSQL, create the database and run necessary migrations to set up your schema.
+
+
+
+agriwise/
+├── android/                    # Android-specific files
+├── ios/                        # iOS-specific files
+├── lib/
+│   ├── src/                    # Application source code
+│   │   ├── core/               # Global configurations, utilities, themes
+│   │   ├── features/           # Feature modules (e.g., authentication, home, profile)
+│   │   └── shared/             # Reusable components and widgets
+│   ├── main.dart               # Flutter app entry point
+├── agriwise-backend/           # Backend project directory
+│   ├── functions/              # Firebase Cloud Functions or Node.js functions
+│   ├── package.json            # Backend dependencies
+│   └── .env                    # Environment variables
+├── pubspec.yaml                # Flutter project configuration
+└── README.md                   # This README file
+
+
+
