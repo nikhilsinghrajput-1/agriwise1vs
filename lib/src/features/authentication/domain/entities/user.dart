@@ -1,11 +1,19 @@
-class UserProfile {
+class User {
   final String id;
-  final String username;
+  final String name;
   final String email;
+  final String phone;
+  final String? profileImageUrl;
+  final String? location;
+  final List<String>? crops;
 
-  UserProfile({
+  User({
     required this.id,
-    required this.username,
+    required this.name,
     required this.email,
+    required this.phone,
+    this.profileImageUrl,
+    this.location,
+    this.crops,
   });
 }

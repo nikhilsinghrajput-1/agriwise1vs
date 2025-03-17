@@ -1,31 +1,104 @@
+import 'package:myapp/src/core/errors/exceptions.dart';
 import 'package:myapp/src/core/network/api_client.dart';
+import 'package:myapp/src/features/authentication/data/models/user_model.dart';
 
 class AuthRemoteDataSource {
   final ApiClient apiClient;
 
   AuthRemoteDataSource({required this.apiClient});
 
-  Future<dynamic> login(String username, String password) async {
+  Future<UserModel> signIn(String email, String password) async {
     try {
       final response = await apiClient.post(
         '/auth/login',
-        body: {'username': username, 'password': password},
+        body: {
+          'email': email,
+          'password': password,
+        },
       );
-      return response;
+
+      if (response['success'] == true) {
+        return UserModel.fromJson(response['user']);
+      } else {
+        throw ServerException(
+          message: response['message'] ?? 'Failed to sign in',
+        );
+      }
     } catch (e) {
-      throw Exception('Failed to login');
+      if (e is ServerException) {
+        rethrow;
+      }
+      throw ServerException(message: 'Failed to sign in');
     }
   }
 
-  Future<dynamic> signup(String username, String password, String email) async {
+  Future<UserModel> signUp(String name, String email, String password, String phone) async {
     try {
       final response = await apiClient.post(
-        '/auth/signup',
-        body: {'username': username, 'password': password, 'email': email},
+        '/auth/register',
+        body: {
+          'name': name,
+          'email': email,
+          'password': password,
+          'phone': phone,
+        },
       );
-      return response;
+
+      if (response['success'] == true) {
+        return UserModel.fromJson(response['user']);
+      } else {
+        throw ServerException(
+          message: response['message'] ?? 'Failed to sign up',
+        );
+      }
     } catch (e) {
-      throw Exception('Failed to signup');
+      if (e is ServerException) {
+        rethrow;
+      }
+      throw ServerException(message: 'Failed to sign up');
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await apiClient.post('/auth/logout');
+    } catch (e) {
+      throw ServerException(message: 'Failed to sign out');
+    }
+  }
+
+  Future<UserModel?> getCurrentUser() async {
+    try {
+      final response = await apiClient.get('/auth/me');
+      
+      if (response['success'] == true && response['user'] != null) {
+        return UserModel.fromJson(response['user']);
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<void> resetPassword(String email) async {
+    try {
+      final response = await apiClient.post(
+        '/auth/reset-password',
+        body: {
+          'email': email,
+        },
+      );
+
+      if (response['success'] != true) {
+        throw ServerException(
+          message: response['message'] ?? 'Failed to reset password',
+        );
+      }
+    } catch (e) {
+      if (e is ServerException) {
+        rethrow;
+      }
+      throw ServerException(message: 'Failed to reset password');
     }
   }
 }

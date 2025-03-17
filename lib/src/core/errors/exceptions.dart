@@ -1,16 +1,49 @@
-// Define custom exceptions here
-class AppException implements Exception {
+/// Base exception class for all app exceptions
+abstract class AppException implements Exception {
   final String message;
-  AppException({this.message = 'An unexpected error occurred.'});
-
+  
+  const AppException({required this.message});
+  
   @override
-  String toString() => 'AppException: $message';
+  String toString() => message;
 }
 
-class CacheException extends AppException {
-  CacheException({super.message = 'Failed to retrieve data from cache.'});
+/// Exception thrown when there is a network-related issue
+class NetworkException extends AppException {
+  const NetworkException({required String message}) : super(message: message);
 }
 
+/// Exception thrown when there is an issue with the server
 class ServerException extends AppException {
-  ServerException({super.message = 'Failed to retrieve data from the server.'});
+  const ServerException({required String message}) : super(message: message);
+}
+
+/// Exception thrown when the user is not authorized to access a resource
+class UnauthorizedException extends AppException {
+  const UnauthorizedException({required String message}) : super(message: message);
+}
+
+/// Exception thrown when the user is forbidden from accessing a resource
+class ForbiddenException extends AppException {
+  const ForbiddenException({required String message}) : super(message: message);
+}
+
+/// Exception thrown when a requested resource is not found
+class NotFoundException extends AppException {
+  const NotFoundException({required String message}) : super(message: message);
+}
+
+/// Exception thrown when there is an issue parsing data
+class DataParsingException extends AppException {
+  const DataParsingException({required String message}) : super(message: message);
+}
+
+/// Exception thrown when there is a cache-related issue
+class CacheException extends AppException {
+  const CacheException({required String message}) : super(message: message);
+}
+
+/// Exception thrown when there is an issue with user input validation
+class ValidationException extends AppException {
+  const ValidationException({required String message}) : super(message: message);
 }
