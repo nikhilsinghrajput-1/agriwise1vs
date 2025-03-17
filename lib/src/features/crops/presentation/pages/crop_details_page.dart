@@ -10,6 +10,7 @@ import 'crop_disease_detection_page.dart';
 import 'weather_page.dart';
 import 'crop_recommendations_page.dart';
 import 'crop_prices_page.dart';
+import 'add_crop_page.dart';
 
 class CropDetailsPage extends StatelessWidget {
   final Crop crop;
