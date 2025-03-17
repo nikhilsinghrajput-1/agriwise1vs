@@ -7,6 +7,7 @@ import '../bloc/crop_state.dart';
 import 'crop_health_page.dart';
 import 'crop_analytics_page.dart';
 import 'crop_disease_detection_page.dart';
+import 'weather_page.dart';
 
 class CropDetailsPage extends StatelessWidget {
   final Crop crop;
@@ -152,20 +153,44 @@ class CropDetailsPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CropDiseaseDetectionPage(crop: crop),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CropDiseaseDetectionPage(crop: crop),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.camera_alt),
+                      label: const Text('Detect Disease'),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 48),
+                      ),
                     ),
-                  );
-                },
-                icon: const Icon(Icons.camera_alt),
-                label: const Text('Detect Disease'),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 48),
-                ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WeatherPage(crop: crop),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.wb_sunny),
+                      label: const Text('Weather'),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 48),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
