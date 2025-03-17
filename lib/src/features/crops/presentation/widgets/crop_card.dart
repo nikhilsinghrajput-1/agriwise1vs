@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/crop.dart';
 import '../../../core/theme/colors.dart';
+import '../pages/add_crop_page.dart';
 
 class CropCard extends StatelessWidget {
   final Crop crop;
-  final VoidCallback onTap;
 
   const CropCard({
     Key? key,
     required this.crop,
-    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddCropPage(crop: crop),
+            ),
+          );
+        },
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -48,7 +50,6 @@ class CropCard extends StatelessWidget {
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 12,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -61,7 +62,7 @@ class CropCard extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                'Planting Date: ${_formatDate(crop.plantingDate)}',
+                'Planted: ${_formatDate(crop.plantingDate)}',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 4),
@@ -76,22 +77,20 @@ class CropCard extends StatelessWidget {
     );
   }
 
-  String _formatDate(DateTime date) {
-    return '${date.day}/${date.month}/${date.year}';
-  }
-
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
-      case 'planted':
-        return AppColors.primary;
-      case 'growing':
-        return AppColors.success;
+      case 'active':
+        return Colors.green;
       case 'harvested':
-        return AppColors.warning;
+        return Colors.blue;
       case 'failed':
-        return AppColors.error;
+        return Colors.red;
       default:
-        return AppColors.secondary;
+        return Colors.grey;
     }
+  }
+
+  String _formatDate(DateTime date) {
+    return '${date.day}/${date.month}/${date.year}';
   }
 } 

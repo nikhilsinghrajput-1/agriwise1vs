@@ -5,8 +5,9 @@ import 'crop_state.dart';
 
 class CropBloc extends Bloc<CropEvent, CropState> {
   final CropRepository _cropRepository;
+  final String userId;
 
-  CropBloc(this._cropRepository) : super(CropInitial()) {
+  CropBloc(this._cropRepository, this.userId) : super(CropInitial()) {
     on<LoadUserCrops>(_onLoadUserCrops);
     on<AddCrop>(_onAddCrop);
     on<UpdateCrop>(_onUpdateCrop);
@@ -22,7 +23,7 @@ class CropBloc extends Bloc<CropEvent, CropState> {
       emit(CropLoading());
       await emit.forEach(
         _cropRepository.getUserCrops(event.userId),
-        onData: (List<crop> crops) => CropLoaded(crops),
+        onData: (List<Crop> crops) => CropLoaded(crops),
       );
     } catch (e) {
       emit(CropError(e.toString()));
@@ -35,8 +36,18 @@ class CropBloc extends Bloc<CropEvent, CropState> {
   ) async {
     try {
       emit(CropLoading());
-      final crop = await _cropRepository.addCrop(event.crop);
-      emit(CropAdded(crop));
+      final crop = Crop(
+        id: event.crop.id,
+        userId: userId,
+        name: event.crop.name,
+        variety: event.crop.variety,
+        plantingDate: event.crop.plantingDate,
+        expectedHarvestDate: event.crop.expectedHarvestDate,
+        status: event.crop.status,
+        createdAt: event.crop.createdAt,
+      );
+      final addedCrop = await _cropRepository.addCrop(crop);
+      emit(CropAdded(addedCrop));
     } catch (e) {
       emit(CropError(e.toString()));
     }

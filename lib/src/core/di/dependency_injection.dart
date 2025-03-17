@@ -19,6 +19,12 @@ import 'package:myapp/src/features/authentication/domain/usecases/reset_password
 import 'package:myapp/src/features/authentication/domain/usecases/sign_in.dart';
 import 'package:myapp/src/features/authentication/domain/usecases/sign_out.dart';
 import 'package:myapp/src/features/authentication/domain/usecases/sign_up.dart';
+import 'package:get_it/get_it.dart';
+import '../../features/crops/data/repositories/crop_repository_impl.dart';
+import '../../features/crops/domain/repositories/crop_repository.dart';
+import '../../features/crops/presentation/bloc/crop_bloc.dart';
+
+final getIt = GetIt.instance;
 
 /// A simple dependency injection container
 class DependencyInjection {
@@ -104,6 +110,22 @@ class DependencyInjection {
     _signOut = SignOut(repository: _authRepository);
     _getCurrentUser = GetCurrentUser(repository: _authRepository);
     _resetPassword = ResetPassword(repository: _authRepository);
+
+    // Repositories
+    getIt.registerLazySingleton<CropRepository>(
+      () => CropRepositoryImpl(
+        _apiClient,
+        _connectivityService,
+      ),
+    );
+
+    // BLoCs
+    getIt.registerFactory<CropBloc>(
+      () => CropBloc(
+        getIt<CropRepository>(),
+        'current_user_id', // TODO: Replace with actual user ID from auth service
+      ),
+    );
   }
   
   // Getters for dependencies
