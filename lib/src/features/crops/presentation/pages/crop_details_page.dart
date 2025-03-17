@@ -9,6 +9,7 @@ import 'crop_analytics_page.dart';
 import 'crop_disease_detection_page.dart';
 import 'weather_page.dart';
 import 'crop_recommendations_page.dart';
+import 'crop_prices_page.dart';
 
 class CropDetailsPage extends StatelessWidget {
   final Crop crop;
@@ -194,20 +195,44 @@ class CropDetailsPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CropRecommendationsPage(),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CropPricesPage(crop: crop),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.attach_money),
+                      label: const Text('Prices'),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 48),
+                      ),
                     ),
-                  );
-                },
-                icon: const Icon(Icons.eco),
-                label: const Text('Get Recommendations'),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 48),
-                ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CropRecommendationsPage(),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.eco),
+                      label: const Text('Get Recommendations'),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 48),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
