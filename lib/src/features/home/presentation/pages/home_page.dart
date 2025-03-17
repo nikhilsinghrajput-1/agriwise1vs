@@ -507,18 +507,21 @@ class DashboardContent extends StatelessWidget {
                     
                     // Crop health and soil moisture
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
+                          flex: 1,
                           child: _buildInfoCard(
                             title: 'Crop Health',
-                            child: const CropHealthWidget(),
+                            child: _buildCropHealthContent(),
                           ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
+                          flex: 1,
                           child: _buildInfoCard(
                             title: 'Soil Moisture',
-                            child: const SoilMoistureWidget(),
+                            child: _buildSoilMoistureContent(),
                           ),
                         ),
                       ],
@@ -545,7 +548,7 @@ class DashboardContent extends StatelessWidget {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       crossAxisCount: 2,
-                      childAspectRatio: 1.5,
+                      childAspectRatio: 1.2,
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 12,
                       children: [
@@ -788,19 +791,20 @@ class DashboardContent extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               title,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF2E7D32),
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             child,
           ],
         ),
@@ -824,13 +828,14 @@ class DashboardContent extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Colors.white,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 padding: const EdgeInsets.all(8),
@@ -841,24 +846,28 @@ class DashboardContent extends StatelessWidget {
                 child: Icon(
                   icon,
                   color: color,
-                  size: 24,
+                  size: 20,
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 8),
               Text(
                 title,
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 13,
                   fontWeight: FontWeight.bold,
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 2),
               Text(
                 description,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 11,
                   color: Colors.grey[600],
                 ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
@@ -914,6 +923,83 @@ class DashboardContent extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  // Custom wrappers for health and moisture widgets
+  Widget _buildCropHealthContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text(
+          'Crop Health',
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Row(
+          children: [
+            const Icon(
+              Icons.eco,
+              color: Colors.green,
+              size: 20,
+            ),
+            const SizedBox(width: 4),
+            const Text(
+              'Healthy',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        const Text(
+          'Optimal: 95%',
+          style: TextStyle(
+            fontSize: 12,
+            color: Colors.grey,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSoilMoistureContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text(
+          'Soil Moisture',
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Row(
+          children: [
+            const Icon(
+              Icons.water_drop,
+              color: Colors.blue,
+              size: 20,
+            ),
+            const SizedBox(width: 4),
+            const Text(
+              'Moisture: 65%',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
