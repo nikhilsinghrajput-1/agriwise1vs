@@ -21,22 +21,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
         final User firebaseUser = userCredential.user!;
 
-        if (firebaseUser != null) {
-          // Store user data in Firestore
-          await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).set({
-            'uid': firebaseUser.uid,
-            'email': firebaseUser.email,
-            'displayName': firebaseUser.displayName,
-            // Add other user details here, such as location and crop type
-          }, SetOptions(merge: true));
+        // Store user data in Firestore
+        await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).set({
+          'uid': firebaseUser.uid,
+          'email': firebaseUser.email,
+          'displayName': firebaseUser.displayName,
+          // Add other user details here, such as location and crop type
+        }, SetOptions(merge: true));
 
-          final UserProfile userProfile = UserProfile(id: firebaseUser.uid, username: firebaseUser.displayName ?? '', email: firebaseUser.email ?? '');
+        final UserProfile userProfile = UserProfile(id: firebaseUser.uid, username: firebaseUser.displayName ?? '', email: firebaseUser.email ?? '');
 
-          emit(AuthSuccess(user: userProfile));
-        } else {
-          emit(AuthFailure(error: 'Google Sign-In failed'));
-        }
-      } catch (e) {
+        emit(AuthSuccess(user: userProfile));
+            } catch (e) {
         emit(AuthFailure(error: e.toString()));
       }
     });

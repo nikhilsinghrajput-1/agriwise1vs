@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class OfflineModePage extends StatelessWidget {
-  const OfflineModePage({Key? key}) : super(key: key);
+  const OfflineModePage({super.key});
 
   @override
   Widget build(BuildContext context) {

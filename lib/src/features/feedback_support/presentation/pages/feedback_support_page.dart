@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FeedbackSupportPage extends StatelessWidget {
-  const FeedbackSupportPage({Key? key}) : super(key: key);
+  const FeedbackSupportPage({super.key});
 
   @override
   Widget build(BuildContext context) {
