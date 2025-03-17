@@ -5,6 +5,7 @@ import '../bloc/crop_bloc.dart';
 import '../bloc/crop_event.dart';
 import '../bloc/crop_state.dart';
 import 'crop_health_page.dart';
+import 'crop_analytics_page.dart';
 
 class CropDetailsPage extends StatelessWidget {
   final Crop crop;
@@ -110,20 +111,44 @@ class CropDetailsPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CropHealthPage(crop: crop),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CropHealthPage(crop: crop),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.health_and_safety),
+                      label: const Text('Health Records'),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 48),
+                      ),
                     ),
-                  );
-                },
-                icon: const Icon(Icons.health_and_safety),
-                label: const Text('View Health Records'),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 48),
-                ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CropAnalyticsPage(crop: crop),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.analytics),
+                      label: const Text('Analytics'),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 48),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
