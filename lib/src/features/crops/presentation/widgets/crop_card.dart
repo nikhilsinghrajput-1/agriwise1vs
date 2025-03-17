@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/crop.dart';
 import '../../../core/theme/colors.dart';
-import '../pages/add_crop_page.dart';
+import '../pages/crop_details_page.dart';
 
 class CropCard extends StatelessWidget {
   final Crop crop;
@@ -20,7 +20,7 @@ class CropCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddCropPage(crop: crop),
+              builder: (context) => CropDetailsPage(crop: crop),
             ),
           );
         },
