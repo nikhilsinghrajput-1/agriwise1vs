@@ -118,6 +118,48 @@ class ApiClient {
       );
     }
   }
+
+  /// Makes a DELETE request to the specified endpoint with error handling
+  Future<Map<String, dynamic>> delete(
+      String endpoint, {
+        Map<String, String>? headers,
+      }) async {
+    try {
+      final uri = Uri.parse('$_baseUrl$endpoint');
+      final response = await _client.delete(
+        uri,
+        headers: headers ?? {'Content-Type': 'application/json'},
+      ).timeout(
+        const Duration(seconds: 15),
+        onTimeout: () {
+          throw const NetworkException(
+            message: 'Request timeout. Please check your internet connection.',
+          );
+        },
+      );
+
+      return _handleResponse(response);
+    } on SocketException {
+      throw const NetworkException(
+        message: 'No internet connection. Please check your network.',
+      );
+    } on HttpException {
+      throw const NetworkException(
+        message: 'Could not complete the request. Please try again.',
+      );
+    } on FormatException {
+      throw const DataParsingException(
+        message: 'Invalid response format. Please try again later.',
+      );
+    } catch (e) {
+      if (e is NetworkException || e is DataParsingException) {
+        rethrow;
+      }
+      throw ServerException(
+        message: 'An unexpected error occurred: ${e.toString()}',
+      );
+    }
+  }
   
   /// Handles HTTP response and returns parsed data or throws appropriate exception
   Map<String, dynamic> _handleResponse(http.Response response) {

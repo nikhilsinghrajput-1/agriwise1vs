@@ -7,14 +7,15 @@ import '../bloc/crop_health_event.dart';
 import '../bloc/crop_health_state.dart';
 import '../widgets/health_record_card.dart';
 import 'add_health_record_page.dart';
+import '../../domain/entities/crop.dart'; // Added import
 
 class CropHealthPage extends StatelessWidget {
   final Crop crop;
 
   const CropHealthPage({
-    Key? key,
+    super.key,
     required this.crop,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -131,4 +132,4 @@ class CropHealthPage extends StatelessWidget {
       ),
     );
   }
-} 
+}

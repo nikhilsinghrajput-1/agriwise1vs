@@ -20,9 +20,10 @@ import 'package:myapp/src/features/authentication/domain/usecases/sign_in.dart';
 import 'package:myapp/src/features/authentication/domain/usecases/sign_out.dart';
 import 'package:myapp/src/features/authentication/domain/usecases/sign_up.dart';
 import 'package:get_it/get_it.dart';
-import '../../features/crops/data/repositories/crop_repository_impl.dart';
-import '../../features/crops/domain/repositories/crop_repository.dart';
-import '../../features/crops/presentation/bloc/crop_bloc.dart';
+import 'package:myapp/src/features/crops/data/repositories/crop_repository_impl.dart';
+import 'package:myapp/src/features/crops/domain/repositories/crop_repository.dart';
+import 'package:myapp/src/features/crops/presentation/bloc/crop_bloc.dart';
+import 'package:myapp/src/core/services/firebase_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -58,6 +59,9 @@ class DependencyInjection {
   late final SignOut _signOut;
   late final GetCurrentUser _getCurrentUser;
   late final ResetPassword _resetPassword;
+
+  // Crops feature dependencies
+  late final FirebaseService _firebaseService;
   
   /// Initializes all dependencies
   Future<void> init() async {
@@ -68,6 +72,7 @@ class DependencyInjection {
       baseUrl: 'https://api.openweathermap.org/data/2.5',
     );
     _connectivityService = ConnectivityService();
+    _firebaseService = FirebaseService();
     
     // Initialize weather feature dependencies
     _weatherRemoteDataSource = WeatherRemoteDataSource(
@@ -113,21 +118,20 @@ class DependencyInjection {
 
     // Repositories
     getIt.registerLazySingleton<CropRepository>(
-      () => CropRepositoryImpl(
-        _apiClient,
-        _connectivityService,
-      ),
+      () => CropRepositoryImpl(_firebaseService),
     );
 
     // BLoCs
-    getIt.registerFactory<CropBloc>(
-      () => CropBloc(
+    getIt.registerFactoryAsync<CropBloc>(() async {
+      final userResult = await _getCurrentUser.execute();
+      final userId = userResult.data?.id ?? 'default_user_id';
+      return CropBloc(
         getIt<CropRepository>(),
-        'current_user_id', // TODO: Replace with actual user ID from auth service
-      ),
-    );
+        userId,
+      );
+    });
   }
-  
+
   // Getters for dependencies
   ApiClient get apiClient => _apiClient;
   ConnectivityService get connectivityService => _connectivityService;
@@ -141,4 +145,4 @@ class DependencyInjection {
   SignOut get signOut => _signOut;
   GetCurrentUser get getCurrentUser => _getCurrentUser;
   ResetPassword get resetPassword => _resetPassword;
-} 
+}

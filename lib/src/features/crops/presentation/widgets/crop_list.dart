@@ -9,7 +9,7 @@ import '../pages/add_crop_page.dart';
 import 'crop_card.dart';
 
 class CropList extends StatelessWidget {
-  const CropList({Key? key}) : super(key: key);
+  const CropList({super.key});
 
   @override
   Widget build(BuildContext context) {

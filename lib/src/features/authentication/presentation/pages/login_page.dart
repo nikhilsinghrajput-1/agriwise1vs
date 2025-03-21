@@ -8,7 +8,7 @@ import 'package:myapp/src/features/authentication/presentation/pages/signup_page
 import 'package:myapp/src/features/authentication/presentation/pages/forgot_password_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
+color: AppColors.primaryColor,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -192,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: ElevatedButton(
                           onPressed: _isLoading ? null : _handleLogin,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
+backgroundColor: AppColors.primaryColor,
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),

@@ -61,7 +61,10 @@ class AuthRemoteDataSource {
 
   Future<void> signOut() async {
     try {
-      await apiClient.post('/auth/logout');
+      await apiClient.post(
+        '/auth/logout',
+        body: {},
+      );
     } catch (e) {
       throw ServerException(message: 'Failed to sign out');
     }

@@ -5,15 +5,15 @@ import '../bloc/crop_bloc.dart';
 import '../bloc/crop_event.dart';
 import '../bloc/crop_state.dart';
 import '../../domain/entities/crop.dart';
-import '../../../core/theme/colors.dart';
+import 'package:myapp/src/core/theme/colors.dart';
 
 class AddCropPage extends StatefulWidget {
   final Crop? crop; // If null, we're adding a new crop. If not, we're editing.
 
   const AddCropPage({
-    Key? key,
+    super.key,
     this.crop,
-  }) : super(key: key);
+  });
 
   @override
   State<AddCropPage> createState() => _AddCropPageState();
@@ -97,7 +97,7 @@ class _AddCropPageState extends State<AddCropPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.crop == null ? 'Add New Crop' : 'Edit Crop'),
-        backgroundColor: AppColors.primary,
+backgroundColor: AppColors.primaryColor,
       ),
       body: BlocListener<CropBloc, CropState>(
         listener: (context, state) {
@@ -186,7 +186,7 @@ class _AddCropPageState extends State<AddCropPage> {
                 ElevatedButton(
                   onPressed: _submitForm,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
+                    backgroundColor: AppColors.primaryColor,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: Text(
@@ -201,4 +201,4 @@ class _AddCropPageState extends State<AddCropPage> {
       ),
     );
   }
-} 
+}

@@ -1,7 +1,7 @@
 import '../../domain/models/crop_health_model.dart';
 import '../../domain/repositories/crop_health_repository.dart';
-import '../../../core/services/api_client.dart';
-import '../../../core/services/connectivity_service.dart';
+import 'package:myapp/src/core/network/api_client.dart';
+import 'package:myapp/src/core/network/connectivity_service.dart';
 
 class CropHealthRepositoryImpl implements CropHealthRepository {
   final ApiClient _apiClient;
@@ -11,31 +11,31 @@ class CropHealthRepositoryImpl implements CropHealthRepository {
 
   @override
   Future<List<CropHealth>> getCropHealthHistory(String cropId) async {
-    if (!await _connectivityService.isConnected) {
+    if (!await _connectivityService.hasInternetConnection()) {
       throw Exception('No internet connection');
     }
 
     final response = await _apiClient.get('/crops/$cropId/health');
-    final List<dynamic> data = response.data['records'];
+final List<dynamic> data = response['records'];
     return data.map((json) => CropHealth.fromJson(json)).toList();
   }
 
   @override
   Future<CropHealth> addCropHealthRecord(CropHealth record) async {
-    if (!await _connectivityService.isConnected) {
+    if (!await _connectivityService.hasInternetConnection()) {
       throw Exception('No internet connection');
     }
 
     final response = await _apiClient.post(
       '/crops/${record.cropId}/health',
-      data: record.toJson(),
+      body: record.toJson(),
     );
-    return CropHealth.fromJson(response.data);
+return CropHealth.fromJson(response);
   }
 
   @override
   Future<void> deleteCropHealthRecord(String recordId) async {
-    if (!await _connectivityService.isConnected) {
+    if (!await _connectivityService.hasInternetConnection()) {
       throw Exception('No internet connection');
     }
 
@@ -44,11 +44,7 @@ class CropHealthRepositoryImpl implements CropHealthRepository {
 
   @override
   Stream<List<CropHealth>> watchCropHealthHistory(String cropId) {
-    return _apiClient
-        .watch('/crops/$cropId/health')
-        .map((response) {
-          final List<dynamic> data = response.data['records'];
-          return data.map((json) => CropHealth.fromJson(json)).toList();
-        });
+    // TODO: Implement watchCropHealthHistory
+    return Stream.empty();
   }
-} 
+}

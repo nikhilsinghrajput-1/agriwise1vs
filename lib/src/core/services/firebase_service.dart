@@ -33,6 +33,7 @@ class FirebaseService {
     required DateTime plantingDate,
     required DateTime expectedHarvestDate,
     required String status,
+    required DateTime createdAt,
   }) async {
     await _firestore.collection('crops').add({
       'userId': userId,
@@ -41,7 +42,7 @@ class FirebaseService {
       'plantingDate': plantingDate,
       'expectedHarvestDate': expectedHarvestDate,
       'status': status,
-      'createdAt': FieldValue.serverTimestamp(),
+      'createdAt': createdAt,
     });
   }
 
@@ -118,4 +119,4 @@ class FirebaseService {
   Future<void> signOut() async {
     await _auth.signOut();
   }
-} 
+}

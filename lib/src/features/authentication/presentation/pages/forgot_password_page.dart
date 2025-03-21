@@ -5,7 +5,7 @@ import 'package:myapp/src/core/theme/colors.dart';
 import 'package:myapp/src/features/authentication/domain/usecases/reset_password.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
-  const ForgotPasswordPage({Key? key}) : super(key: key);
+  const ForgotPasswordPage({super.key});
 
   @override
   State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
@@ -82,7 +82,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
+color: AppColors.primaryColor,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -174,7 +174,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         child: ElevatedButton(
                           onPressed: _isLoading ? null : _handleResetPassword,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
+backgroundColor: AppColors.primaryColor,
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -208,4 +208,4 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       ),
     );
   }
-} 
+}

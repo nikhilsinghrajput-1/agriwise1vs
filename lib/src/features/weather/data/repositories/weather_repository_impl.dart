@@ -14,9 +14,8 @@ class WeatherRepositoryImpl extends BaseRepository implements WeatherRepository 
   
   WeatherRepositoryImpl({
     required WeatherRemoteDataSource remoteDataSource,
-    required ConnectivityService connectivityService,
-  }) : _remoteDataSource = remoteDataSource,
-       super(connectivityService: connectivityService);
+    required super.connectivityService,
+  }) : _remoteDataSource = remoteDataSource;
   
   @override
   Future<Result<WeatherModel>> getCurrentWeather(String cityName) async {

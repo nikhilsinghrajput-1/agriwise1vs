@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/models/crop_model.dart';
+import '../../domain/entities/crop.dart';
 import '../bloc/crop_bloc.dart';
 import '../bloc/crop_event.dart';
 import '../bloc/crop_state.dart';
@@ -16,9 +17,9 @@ class CropDetailsPage extends StatelessWidget {
   final Crop crop;
 
   const CropDetailsPage({
-    Key? key,
+    super.key,
     required this.crop,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -319,4 +320,4 @@ class CropDetailsPage extends StatelessWidget {
   int _calculateDaysUntilHarvest(DateTime harvestDate) {
     return harvestDate.difference(DateTime.now()).inDays;
   }
-} 
+}

@@ -6,7 +6,7 @@ import 'package:myapp/src/features/weather/domain/usecases/get_weather_data.dart
 import 'package:myapp/src/core/repositories/base_repository.dart';
 
 class WeatherWidget extends StatefulWidget {
-  const WeatherWidget({Key? key}) : super(key: key);
+  const WeatherWidget({super.key});
 
   @override
   State<WeatherWidget> createState() => _WeatherWidgetState();
@@ -57,7 +57,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [AppColors.primary, AppColors.primaryDark],
+colors: [AppColors.primaryColor, AppColors.secondaryColor],
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
@@ -115,7 +115,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           onPressed: _fetchWeatherData,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,
-            foregroundColor: AppColors.primary,
+foregroundColor: AppColors.primaryColor,
           ),
           child: const Text('पुनः प्रयास करें'),
         ),
@@ -164,7 +164,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               ],
             ),
             Icon(
-              _weatherData!.weatherIcon,
+              _weatherData!.conditionIcon,
               color: Colors.white,
               size: 40,
             ),

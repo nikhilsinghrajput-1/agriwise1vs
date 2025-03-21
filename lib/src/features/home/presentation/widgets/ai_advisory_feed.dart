@@ -6,7 +6,7 @@ import 'package:myapp/src/features/home/domain/entities/advisory.dart';
 import 'package:myapp/src/features/home/domain/usecases/get_advisory_data.dart';
 
 class AIAdvisoryFeed extends StatefulWidget {
-  const AIAdvisoryFeed({Key? key}) : super(key: key);
+  const AIAdvisoryFeed({super.key});
 
   @override
   State<AIAdvisoryFeed> createState() => _AIAdvisoryFeedState();
@@ -140,7 +140,7 @@ class _AIAdvisoryFeedState extends State<AIAdvisoryFeed> {
           ElevatedButton(
             onPressed: _fetchAdvisories,
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
+              backgroundColor: AppColors.primaryColor,
               foregroundColor: Colors.white,
             ),
             child: const Text('Retry'),
@@ -190,7 +190,7 @@ class _AIAdvisoryFeedState extends State<AIAdvisoryFeed> {
           ],
         ),
         const SizedBox(height: 16),
-        ..._advisories!.map((advisory) => _buildAdvisoryItem(advisory)).toList(),
+        ..._advisories!.map((advisory) => _buildAdvisoryItem(advisory)),
         const SizedBox(height: 8),
         Align(
           alignment: Alignment.centerRight,

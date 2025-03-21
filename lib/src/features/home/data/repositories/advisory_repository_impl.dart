@@ -16,11 +16,10 @@ class AdvisoryRepositoryImpl implements AdvisoryRepository {
 
   @override
   Future<Result<List<Advisory>>> getAdvisories() async {
-    if (!await connectivityService.isConnected()) {
+    if (!await connectivityService.hasInternetConnection()) {
       return Result.failure(
-        AppError(
-          type: ErrorType.network,
-          message: 'इंटरनेट कनेक्शन उपलब्ध नहीं है',
+        ServerException(
+          message: 'No internet connection available',
         ),
       );
     }
@@ -30,23 +29,20 @@ class AdvisoryRepositoryImpl implements AdvisoryRepository {
       return Result.success(advisories);
     } on ServerException catch (e) {
       return Result.failure(
-        AppError(
-          type: ErrorType.server,
+        ServerException(
           message: e.message,
         ),
       );
     } on CacheException catch (e) {
       return Result.failure(
-        AppError(
-          type: ErrorType.cache,
+        CacheException(
           message: e.message,
         ),
       );
     } catch (e) {
       return Result.failure(
-        AppError(
-          type: ErrorType.unknown,
-          message: 'एक अनपेक्षित त्रुटि हुई है',
+        ServerException(
+          message: 'An unexpected error occurred',
         ),
       );
     }

@@ -294,10 +294,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showAIChatDialog(BuildContext context) {
-    final TextEditingController _messageController = TextEditingController();
+    final TextEditingController messageController = TextEditingController();
     
     // Sample chat messages
-    final List<Map<String, dynamic>> _messages = [
+    final List<Map<String, dynamic>> messages = [
       {
         'isUser': false,
         'message': 'Hello! I\'m your agricultural advisor. How can I help you today?',
@@ -371,13 +371,13 @@ class _HomePageState extends State<HomePage> {
                 
                 // Chat messages
                 Expanded(
-                  child: _messages.isEmpty
+                  child: messages.isEmpty
                       ? _buildEmptyChatState()
                       : ListView.builder(
                           padding: const EdgeInsets.all(16),
-                          itemCount: _messages.length,
+                          itemCount: messages.length,
                           itemBuilder: (context, index) {
-                            final message = _messages[index];
+                            final message = messages[index];
                             return _buildChatMessage(
                               message: message['message'],
                               isUser: message['isUser'],
@@ -450,7 +450,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Expanded(
                         child: TextField(
-                          controller: _messageController,
+                          controller: messageController,
                           decoration: InputDecoration(
                             hintText: 'Ask about farming...',
                             border: OutlineInputBorder(
@@ -476,10 +476,10 @@ class _HomePageState extends State<HomePage> {
                         child: IconButton(
                           icon: const Icon(Icons.send, color: Colors.white),
                           onPressed: () {
-                            if (_messageController.text.trim().isNotEmpty) {
+                            if (messageController.text.trim().isNotEmpty) {
                               setState(() {
-                                _addUserMessage(_messageController.text, setState);
-                                _messageController.clear();
+                                _addUserMessage(messageController.text, setState);
+                                messageController.clear();
                               });
                             }
                           },
@@ -498,7 +498,7 @@ class _HomePageState extends State<HomePage> {
   
   void _addUserMessage(String text, StateSetter setState) {
     // Sample chat messages
-    final List<Map<String, dynamic>> _messages = [
+    final List<Map<String, dynamic>> messages = [
       {
         'isUser': false,
         'message': 'Hello! I\'m your agricultural advisor. How can I help you today?',
@@ -507,7 +507,7 @@ class _HomePageState extends State<HomePage> {
     ];
     
     // Add user message
-    _messages.add({
+    messages.add({
       'isUser': true,
       'message': text,
       'timestamp': DateTime.now(),
@@ -528,7 +528,7 @@ class _HomePageState extends State<HomePage> {
           response = 'Thank you for your question. I\'ll analyze the best practices for your situation and provide personalized advice shortly.';
         }
         
-        _messages.add({
+        messages.add({
           'isUser': false,
           'message': response,
           'timestamp': DateTime.now(),
@@ -676,7 +676,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class DashboardContent extends StatefulWidget {
-  const DashboardContent({Key? key}) : super(key: key);
+  const DashboardContent({super.key});
 
   @override
   State<DashboardContent> createState() => _DashboardContentState();

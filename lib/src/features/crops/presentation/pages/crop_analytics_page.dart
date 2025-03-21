@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/models/crop_model.dart';
+import '../../domain/entities/crop.dart';
+import '../../domain/models/crop_health_model.dart';
 import '../bloc/crop_health_bloc.dart';
 import '../bloc/crop_health_event.dart';
 import '../bloc/crop_health_state.dart';
@@ -10,9 +12,9 @@ class CropAnalyticsPage extends StatelessWidget {
   final Crop crop;
 
   const CropAnalyticsPage({
-    Key? key,
+    super.key,
     required this.crop,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -147,23 +149,23 @@ class CropAnalyticsPage extends StatelessWidget {
             const SizedBox(height: 16),
             _buildMetricRow(
               'Soil Moisture',
-              '${latestRecord.soilMoisture.toStringAsFixed(1)}%',
-              '${averageSoilMoisture.toStringAsFixed(1)}%',
+'${latestRecord.soilMoisture!.toStringAsFixed(1)}%',
+'${averageSoilMoisture!.toStringAsFixed(1)}%',
               _getSoilMoistureColor(latestRecord.soilMoisture),
             ),
             const SizedBox(height: 8),
             _buildMetricRow(
               'Temperature',
-              '${latestRecord.temperature.toStringAsFixed(1)}°C',
-              '${averageTemperature.toStringAsFixed(1)}°C',
+'${latestRecord.temperature!.toStringAsFixed(1)}°C',
+'${averageTemperature!.toStringAsFixed(1)}°C',
               _getTemperatureColor(latestRecord.temperature),
             ),
             const SizedBox(height: 8),
             _buildMetricRow(
               'Humidity',
-              '${latestRecord.humidity.toStringAsFixed(1)}%',
-              '${averageHumidity.toStringAsFixed(1)}%',
-              _getHumidityColor(latestRecord.humidity),
+'${latestRecord.humidity!.toStringAsFixed(1)}%',
+'${averageHumidity!.toStringAsFixed(1)}%',
+_getHumidityColor(latestRecord.humidity!),
             ),
           ],
         ),
@@ -181,9 +183,9 @@ class CropAnalyticsPage extends StatelessWidget {
       );
     }
 
-    final healthyCount = records.where((r) => r.diseaseStatus == 'Healthy').length;
-    final mildCount = records.where((r) => r.diseaseStatus == 'Mild').length;
-    final severeCount = records.where((r) => r.diseaseStatus == 'Severe').length;
+final healthyCount = records.where((r) => r.diseaseStatus! == 'Healthy').length;
+final mildCount = records.where((r) => r.diseaseStatus! == 'Mild').length;
+final severeCount = records.where((r) => r.diseaseStatus! == 'Severe').length;
 
     return Card(
       child: Padding(
@@ -303,4 +305,4 @@ class CropAnalyticsPage extends StatelessWidget {
     if (humidity < 60) return Colors.orange;
     return Colors.green;
   }
-} 
+}

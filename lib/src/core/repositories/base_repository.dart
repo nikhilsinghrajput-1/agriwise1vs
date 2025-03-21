@@ -28,12 +28,24 @@ class Result<T> {
   /// Maps the result to a new type using the provided function
   Result<R> map<R>(R Function(T data) mapper) {
     if (isSuccess && data != null) {
-      return Result.success(mapper(data));
+      return Result.success(mapper(data as T));
     } else {
       return Result._(
         error: error,
         isSuccess: false,
       );
+    }
+  }
+
+  /// Executes a callback based on the result type
+  void when({
+    required Function(T data) success,
+    required Function(AppException error) failure,
+  }) {
+    if (isSuccess && data != null) {
+      success(data as T);
+    } else if (!isSuccess && error != null) {
+      failure(error as AppException);
     }
   }
 }
@@ -141,4 +153,4 @@ abstract class BaseRepository {
       }
     }
   }
-} 
+}

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/repositories/crop_repository.dart';
+import '../../domain/entities/crop.dart';
 import 'crop_event.dart';
 import 'crop_state.dart';
 
@@ -44,7 +45,7 @@ class CropBloc extends Bloc<CropEvent, CropState> {
         plantingDate: event.crop.plantingDate,
         expectedHarvestDate: event.crop.expectedHarvestDate,
         status: event.crop.status,
-        createdAt: event.crop.createdAt,
+        createdAt: DateTime.now(),
       );
       final addedCrop = await _cropRepository.addCrop(crop);
       emit(CropAdded(addedCrop));
@@ -85,4 +86,4 @@ class CropBloc extends Bloc<CropEvent, CropState> {
   ) {
     emit(CropInitial());
   }
-} 
+}

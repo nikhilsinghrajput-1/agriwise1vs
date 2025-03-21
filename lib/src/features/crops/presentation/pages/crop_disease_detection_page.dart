@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../domain/entities/crop.dart';
 import '../../domain/models/crop_model.dart';
 import '../bloc/crop_health_bloc.dart';
 import '../bloc/crop_health_event.dart';
 import '../bloc/crop_health_state.dart';
 import 'dart:io';
+import '../../domain/models/crop_health_model.dart';
 
 class CropDiseaseDetectionPage extends StatefulWidget {
   final Crop crop;
 
   const CropDiseaseDetectionPage({
-    Key? key,
+    super.key,
     required this.crop,
-  }) : super(key: key);
+  });
 
   @override
   State<CropDiseaseDetectionPage> createState() => _CropDiseaseDetectionPageState();
@@ -122,13 +124,17 @@ class _CropDiseaseDetectionPageState extends State<CropDiseaseDetectionPage> {
                         ElevatedButton.icon(
                           onPressed: () {
                             context.read<CropHealthBloc>().add(
-                              AddCropHealth(
-                                cropId: widget.crop.id,
-                                soilMoisture: 0, // These values will be updated
-                                temperature: 0,  // when we implement actual
-                                humidity: 0,     // sensor integration
-                                diseaseStatus: _diseaseResult!,
-                                notes: 'Disease detected: $_diseaseResult',
+                              AddCropHealthRecord(
+                                CropHealth(
+                                  id: DateTime.now().millisecondsSinceEpoch.toString(),
+                                  cropId: widget.crop.id,
+                                  date: DateTime.now(),
+                                  soilMoisture: 0, // These values will be updated
+                                  temperature: 0,  // when we implement actual
+                                  humidity: 0,     // sensor integration
+                                  diseaseStatus: _diseaseResult!,
+                                  notes: 'Disease detected: $_diseaseResult',
+                                ),
                               ),
                             );
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -180,4 +186,4 @@ class _CropDiseaseDetectionPageState extends State<CropDiseaseDetectionPage> {
       ],
     );
   }
-} 
+}

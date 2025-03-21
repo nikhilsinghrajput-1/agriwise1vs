@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myapp/src/features/authentication/domain/entities/user.dart';
@@ -14,12 +14,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
         final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-        final OAuthCredential credential = GoogleAuthProvider.credential(
+        final firebase_auth.OAuthCredential credential = firebase_auth.GoogleAuthProvider.credential(
           accessToken: googleAuth?.accessToken,
           idToken: googleAuth?.idToken,
         );
-        final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-        final User firebaseUser = userCredential.user!;
+        final firebase_auth.UserCredential userCredential = await firebase_auth.FirebaseAuth.instance.signInWithCredential(credential);
+        final firebase_auth.User firebaseUser = userCredential.user!;
 
         // Store user data in Firestore
         await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).set({
@@ -29,7 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           // Add other user details here, such as location and crop type
         }, SetOptions(merge: true));
 
-        final UserProfile userProfile = UserProfile(id: firebaseUser.uid, username: firebaseUser.displayName ?? '', email: firebaseUser.email ?? '');
+        final User userProfile = User(id: firebaseUser.uid, name: firebaseUser.displayName ?? '', email: firebaseUser.email ?? '', phone: '');
 
         emit(AuthSuccess(user: userProfile));
             } catch (e) {
@@ -40,7 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogoutRequested>((event, emit) async {
       emit(AuthLoading());
       try {
-        await FirebaseAuth.instance.signOut();
+        await firebase_auth.FirebaseAuth.instance.signOut();
         await GoogleSignIn().signOut();
         emit(AuthInitial());
       } catch (e) {

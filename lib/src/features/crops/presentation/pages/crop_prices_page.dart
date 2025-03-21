@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../domain/entities/crop.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../domain/models/crop_model.dart';
 
@@ -6,9 +7,9 @@ class CropPricesPage extends StatefulWidget {
   final Crop crop;
 
   const CropPricesPage({
-    Key? key,
+    super.key,
     required this.crop,
-  }) : super(key: key);
+  });
 
   @override
   State<CropPricesPage> createState() => _CropPricesPageState();
@@ -263,4 +264,4 @@ class _CropPricesPageState extends State<CropPricesPage> {
       ),
     );
   }
-} 
+}

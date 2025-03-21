@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/crop.dart';
-import '../../../core/theme/colors.dart';
+import 'package:myapp/src/core/theme/colors.dart';
 import '../pages/crop_details_page.dart';
 
 class CropCard extends StatelessWidget {
   final Crop crop;
 
   const CropCard({
-    Key? key,
+    super.key,
     required this.crop,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -93,4 +93,4 @@ class CropCard extends StatelessWidget {
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
   }
-} 
+}

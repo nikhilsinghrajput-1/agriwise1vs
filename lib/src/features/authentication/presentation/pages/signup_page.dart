@@ -6,7 +6,7 @@ import 'package:myapp/src/features/authentication/domain/usecases/sign_up.dart';
 import 'package:myapp/src/features/authentication/presentation/pages/login_page.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key}) : super(key: key);
+  const SignupPage({super.key});
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -95,7 +95,7 @@ class _SignupPageState extends State<SignupPage> {
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
+color: AppColors.primaryColor,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -226,7 +226,7 @@ class _SignupPageState extends State<SignupPage> {
                         child: ElevatedButton(
                           onPressed: _isLoading ? null : _handleSignUp,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
+backgroundColor: AppColors.primaryColor,
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),

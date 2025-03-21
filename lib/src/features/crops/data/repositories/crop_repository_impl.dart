@@ -18,6 +18,7 @@ class CropRepositoryImpl implements CropRepository {
       plantingDate: cropModel.plantingDate,
       expectedHarvestDate: cropModel.expectedHarvestDate,
       status: cropModel.status,
+      createdAt: cropModel.createdAt,
     );
     return crop;
   }
@@ -39,4 +40,4 @@ class CropRepositoryImpl implements CropRepository {
   Future<void> deleteCrop(String cropId) async {
     await _firebaseService.deleteCrop(cropId);
   }
-} 
+}

@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:weather/weather.dart';
 
 class CropRecommendationsPage extends StatefulWidget {
-  const CropRecommendationsPage({Key? key}) : super(key: key);
+  const CropRecommendationsPage({super.key});
 
   @override
   State<CropRecommendationsPage> createState() => _CropRecommendationsPageState();
@@ -59,7 +59,6 @@ class _CropRecommendationsPageState extends State<CropRecommendationsPage> {
 
     final temperature = _currentWeather!.temperature?.celsius ?? 0;
     final humidity = _currentWeather!.humidity ?? 0;
-    final rainfall = _currentWeather!.rain?.last3Hours ?? 0;
 
     List<Map<String, dynamic>> recommendations = [];
 
@@ -153,7 +152,7 @@ class _CropRecommendationsPageState extends State<CropRecommendationsPage> {
     );
   }
 
-  Widget _buildWeatherCard() {
+ Widget _buildWeatherCard() {
     if (_currentWeather == null) return const SizedBox.shrink();
 
     return Card(
@@ -171,19 +170,9 @@ class _CropRecommendationsPageState extends State<CropRecommendationsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildWeatherInfo(
-                  'Temperature',
-                  '${_currentWeather!.temperature?.celsius?.round()}°C',
-                  Icons.thermostat,
-                ),
-                _buildWeatherInfo(
                   'Humidity',
                   '${_currentWeather!.humidity}%',
                   Icons.water_drop,
-                ),
-                _buildWeatherInfo(
-                  'Rainfall',
-                  '${_currentWeather!.rain?.last3Hours ?? 0}mm',
-                  Icons.beach_access,
                 ),
               ],
             ),
@@ -341,4 +330,4 @@ class _CropRecommendationsPageState extends State<CropRecommendationsPage> {
     if (confidence >= 60) return Colors.orange;
     return Colors.red;
   }
-} 
+}

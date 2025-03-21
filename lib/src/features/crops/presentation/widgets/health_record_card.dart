@@ -6,10 +6,10 @@ class HealthRecordCard extends StatelessWidget {
   final VoidCallback onDelete;
 
   const HealthRecordCard({
-    Key? key,
+    super.key,
     required this.record,
     required this.onDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

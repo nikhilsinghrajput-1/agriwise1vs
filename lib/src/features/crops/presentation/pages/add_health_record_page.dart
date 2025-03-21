@@ -5,14 +5,15 @@ import '../../domain/models/crop_model.dart';
 import '../bloc/crop_health_bloc.dart';
 import '../bloc/crop_health_event.dart';
 import '../bloc/crop_health_state.dart';
+import '../../domain/entities/crop.dart';
 
 class AddHealthRecordPage extends StatefulWidget {
   final Crop crop;
 
   const AddHealthRecordPage({
-    Key? key,
+    super.key,
     required this.crop,
-  }) : super(key: key);
+  });
 
   @override
   State<AddHealthRecordPage> createState() => _AddHealthRecordPageState();
@@ -213,4 +214,4 @@ class _AddHealthRecordPageState extends State<AddHealthRecordPage> {
       ),
     );
   }
-} 
+}

@@ -20,7 +20,7 @@ void main() async {
   bool hasSeenOnboarding = prefs.getBool('hasSeenOnboarding') ?? false;
 
   // Check if user is already logged in
-  final userResult = await di.getCurrentUser().execute();
+  final userResult = await di.getCurrentUser.execute();
   final isLoggedIn = userResult.isSuccess && userResult.data != null;
 
   Widget initialRoute;

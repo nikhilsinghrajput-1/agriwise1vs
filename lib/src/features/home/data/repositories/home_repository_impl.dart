@@ -15,7 +15,7 @@ class HomeRepositoryImpl implements HomeRepository {
       final result = await remoteDataSource.getAdvisories();
       return (result as List).map((e) => Advisory.fromModel(AdvisoryModel.fromJson(e))).toList();
     } on ServerException {
-      throw ServerException();
+      throw const ServerException(message: 'Server error');
     }
   }
 }

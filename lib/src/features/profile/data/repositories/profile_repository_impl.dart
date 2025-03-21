@@ -1,31 +1,52 @@
 import 'package:myapp/src/core/errors/exceptions.dart';
-import 'package:myapp/src/features/profile/data/datasources/profile_remote_data_source.dart';
-import 'package:myapp/src/features/profile/data/models/profile_model.dart';
+import 'package:myapp/src/core/network/connectivity_service.dart';
+import 'package:myapp/src/core/repositories/base_repository.dart';
 import 'package:myapp/src/features/profile/domain/entities/profile.dart';
 import 'package:myapp/src/features/profile/domain/repositories/profile_repository.dart';
+import 'package:myapp/src/features/profile/data/datasources/profile_remote_data_source.dart';
+import 'package:myapp/src/features/profile/data/datasources/profile_local_data_source.dart';
+import 'package:myapp/src/features/profile/data/models/profile_model.dart';
 
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource remoteDataSource;
+  final ProfileLocalDataSource localDataSource;
+  final ConnectivityService connectivityService;
 
-  ProfileRepositoryImpl({required this.remoteDataSource});
+  ProfileRepositoryImpl({
+    required this.remoteDataSource,
+    required this.localDataSource,
+    required this.connectivityService,
+  });
 
   @override
   Future<Profile> getProfile() async {
+    if (!await connectivityService.hasInternetConnection()) {
+      throw const NetworkException(message: 'No internet connection available');
+    }
     try {
-      final result = await remoteDataSource.getProfile();
-      return ProfileModel.fromJson(result);
-    } on ServerException {
-      throw ServerException();
+      final profileModel = await remoteDataSource.getProfile();
+      // Note: We're assuming the local data source exists for caching
+      // await localDataSource.cacheProfile(profileModel);
+      return profileModel.toEntity();
+    } on ServerException catch (e) {
+      throw ServerException(message: e.message);
+    } catch (e) {
+      throw ServerException(message: "An unexpected error occurred");
     }
   }
 
   @override
   Future<Profile> updateProfile(Map<String, dynamic> profileData) async {
+    if (!await connectivityService.hasInternetConnection()) {
+      throw const NetworkException(message: 'No internet connection available');
+    }
     try {
-      final result = await remoteDataSource.updateProfile(profileData);
-      return ProfileModel.fromJson(result);
-    } on ServerException {
-      throw ServerException();
+      final updatedProfile = await remoteDataSource.updateProfile(profileData);
+      return updatedProfile.toEntity();
+    } on ServerException catch (e) {
+      throw ServerException(message: e.message);
+    } catch (e) {
+      throw ServerException(message: 'An unexpected error occurred');
     }
   }
 }

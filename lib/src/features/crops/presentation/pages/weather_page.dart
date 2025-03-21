@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../domain/entities/crop.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/models/crop_model.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,9 +9,9 @@ class WeatherPage extends StatefulWidget {
   final Crop crop;
 
   const WeatherPage({
-    Key? key,
+    super.key,
     required this.crop,
-  }) : super(key: key);
+  });
 
   @override
   State<WeatherPage> createState() => _WeatherPageState();
@@ -395,4 +396,4 @@ class _WeatherPageState extends State<WeatherPage> {
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}';
   }
-} 
+}

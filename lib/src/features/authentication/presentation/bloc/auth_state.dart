@@ -1,13 +1,13 @@
 part of 'auth_bloc.dart';
 
-abstract class AuthState {}
+abstract class AuthState  {}
 
 class AuthInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
 
 class AuthSuccess extends AuthState {
-  final UserProfile user;
+  final User user;
 
   AuthSuccess({required this.user});
 }
