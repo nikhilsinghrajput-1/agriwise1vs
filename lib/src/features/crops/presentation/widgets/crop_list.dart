@@ -4,7 +4,6 @@ import '../../../../core/di/dependency_injection.dart';
 import '../bloc/crop_bloc.dart';
 import '../bloc/crop_event.dart';
 import '../bloc/crop_state.dart';
-import '../../domain/entities/crop.dart';
 import '../pages/add_crop_page.dart';
 import 'crop_card.dart';
 

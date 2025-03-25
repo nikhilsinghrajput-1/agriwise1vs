@@ -3,7 +3,6 @@ import 'package:myapp/src/core/di/dependency_injection.dart';
 import 'package:myapp/src/core/theme/colors.dart';
 import 'package:myapp/src/features/weather/domain/models/weather_model.dart';
 import 'package:myapp/src/features/weather/domain/usecases/get_weather_data.dart';
-import 'package:myapp/src/core/repositories/base_repository.dart';
 
 class WeatherWidget extends StatefulWidget {
   const WeatherWidget({super.key});

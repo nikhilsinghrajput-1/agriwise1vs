@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/crop.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../../domain/models/crop_model.dart';
 
 class CropPricesPage extends StatefulWidget {
   final Crop crop;

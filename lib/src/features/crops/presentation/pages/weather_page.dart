@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/crop.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/models/crop_model.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather/weather.dart';
 

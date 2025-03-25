@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/crop.dart';
-import 'package:myapp/src/core/theme/colors.dart';
 import '../pages/crop_details_page.dart';
 
 class CropCard extends StatelessWidget {

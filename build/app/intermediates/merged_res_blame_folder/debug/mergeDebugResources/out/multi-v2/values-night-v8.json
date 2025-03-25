@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.myapp-mergeDebugResources-43:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.example.myapp-mergeDebugResources-47:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/home/user/myapp/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/home/user/agriwise1vs/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/home/user/.gradle/caches/8.10.2/transforms/613f3d7de7e3d332dc72628e533b889f/transformed/appcompat-1.1.0/res/values-night-v8/values-night-v8.xml",
+                    "source": "/home/user/.gradle/caches/8.9/transforms/c7c67b0a1a428f1301c05aae0c43ad03/transformed/appcompat-1.1.0/res/values-night-v8/values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",

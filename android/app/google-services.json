@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1053342605389",
+    "project_id": "agriwise1vs",
+    "storage_bucket": "agriwise1vs.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053342605389:android:2872031923096218e67c04",
+        "android_client_info": {
+          "package_name": "com.example.myapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8VHT5fmWr1E9olnaoL54gaYzZD9Oo144"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

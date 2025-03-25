@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/models/crop_model.dart';
 import '../../domain/entities/crop.dart';
 import '../bloc/crop_bloc.dart';
 import '../bloc/crop_event.dart';

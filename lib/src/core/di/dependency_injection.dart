@@ -19,6 +19,7 @@ import 'package:myapp/src/features/authentication/domain/usecases/reset_password
 import 'package:myapp/src/features/authentication/domain/usecases/sign_in.dart';
 import 'package:myapp/src/features/authentication/domain/usecases/sign_out.dart';
 import 'package:myapp/src/features/authentication/domain/usecases/sign_up.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
 import 'package:myapp/src/features/crops/data/repositories/crop_repository_impl.dart';
 import 'package:myapp/src/features/crops/domain/repositories/crop_repository.dart';
@@ -72,6 +73,8 @@ class DependencyInjection {
       baseUrl: 'https://api.openweathermap.org/data/2.5',
     );
     _connectivityService = ConnectivityService();
+    // Initialize Firebase
+    await Firebase.initializeApp();
     _firebaseService = FirebaseService();
     
     // Initialize weather feature dependencies

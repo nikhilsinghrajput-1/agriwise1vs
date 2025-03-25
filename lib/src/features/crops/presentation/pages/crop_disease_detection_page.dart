@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../domain/entities/crop.dart';
-import '../../domain/models/crop_model.dart';
 import '../bloc/crop_health_bloc.dart';
 import '../bloc/crop_health_event.dart';
-import '../bloc/crop_health_state.dart';
 import 'dart:io';
 import '../../domain/models/crop_health_model.dart';
 

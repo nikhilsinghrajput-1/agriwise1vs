@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:myapp/src/core/errors/exceptions.dart';
-import 'package:myapp/src/core/network/connectivity_service.dart';
 import 'package:myapp/src/core/repositories/base_repository.dart';
 import 'package:myapp/src/features/weather/data/datasources/weather_remote_data_source.dart';
 import 'package:myapp/src/features/weather/domain/models/weather_model.dart';

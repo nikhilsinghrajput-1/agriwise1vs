@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/src/core/di/dependency_injection.dart';
-import 'package:myapp/src/core/repositories/base_repository.dart';
 import 'package:myapp/src/core/theme/colors.dart';
 import 'package:myapp/src/features/authentication/domain/usecases/sign_up.dart';
 import 'package:myapp/src/features/authentication/presentation/pages/login_page.dart';

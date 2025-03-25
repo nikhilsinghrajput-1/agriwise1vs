@@ -1,11 +1,9 @@
 import 'package:myapp/src/core/errors/exceptions.dart';
 import 'package:myapp/src/core/network/connectivity_service.dart';
-import 'package:myapp/src/core/repositories/base_repository.dart';
 import 'package:myapp/src/features/profile/domain/entities/profile.dart';
 import 'package:myapp/src/features/profile/domain/repositories/profile_repository.dart';
 import 'package:myapp/src/features/profile/data/datasources/profile_remote_data_source.dart';
 import 'package:myapp/src/features/profile/data/datasources/profile_local_data_source.dart';
-import 'package:myapp/src/features/profile/data/models/profile_model.dart';
 
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource remoteDataSource;
