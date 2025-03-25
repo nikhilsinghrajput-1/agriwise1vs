@@ -67,7 +67,7 @@ const authenticate = (req, res, next) => {
 exports.getWeather = functions.https.onRequest(async (req, res) => {
   cors(req, res, () => {
     authenticate(req, res, async () => {
-      const apiKey = '122b5ca44232667e09aac00898f601bf'; // Replace with your OpenWeather API key
+      const apiKey = ''; // Replace with your OpenWeather API key
       const city = req.query.city || 'San Francisco';
       try {
         const response = await axios.get(
